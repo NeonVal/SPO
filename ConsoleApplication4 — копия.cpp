@@ -1127,6 +1127,49 @@ bool Cycle()
 	return false;
 }
 
+bool For()
+{
+	Token temp = scan(false);
+	mainCode.push_back("; For()\n");
+	string whileMark = GenerateMark();
+	string doMark = GenerateMark();
+	string endMark = GenerateMark();
+	temp = scan(true);
+	string ident = I[temp.n].name;
+	bool checkTo = false;
+	if (temp.ch == 'I')
+	{
+		if (!Appropriation())
+			return false;
+		mainCode.push_back(whileMark + ":\n");
+		temp = scan(false);
+		if (!(temp.ch == 'K' && (temp.n == Find(K, "to") || (temp.n == Find(K, "downto"))))) { Error("For", 1); return false; }
+		checkTo = (temp.ch == 'K' && (temp.n == Find(K, "to")));
+		temp = scan(false);
+		if (!((temp.ch == 'I')|| (temp.ch == 'C'))) { Error("For", 1); return false; }
+		mainCode.push_back("mov ax, "+ident+"\n");
+		if (temp.ch == 'I') mainCode.push_back("mov bx, " + I[temp.n].name + "\n");
+		else if (temp.ch == 'C') mainCode.push_back("mov bx, " + C[temp.n] + "\n");
+		mainCode.push_back("cmp ax, bx\n");
+		if(checkTo) mainCode.push_back("jbe " + doMark + "\n");
+		else mainCode.push_back("jae " + doMark + "\n");
+		mainCode.push_back("jmp " + endMark + "\n");
+		mainCode.push_back(doMark + ":\n");
+		temp = scan(false);
+		if (!(temp.ch == 'K' && temp.n == Find(K, "do"))) { Error("For", 1); return false; }
+		if (!Operator())
+			return false;
+		mainCode.push_back("mov ax, " + ident + "\n");
+		if(checkTo) mainCode.push_back("add ax, 1\n");
+		else mainCode.push_back("sub ax, 1\n");
+		mainCode.push_back("mov " + ident + ", ax\n");
+		mainCode.push_back("jmp " + whileMark + "\n");
+		mainCode.push_back(endMark + ":\n");
+		return true;
+	}
+	Error("For", 1);
+	return false;
+}
 
 bool Repeat()
 {
@@ -1162,6 +1205,44 @@ bool Repeat()
 	return false;
 }
 
+bool DoWhile()
+{
+	Token temp = scan(false);
+	temp = scan(false);
+	mainCode.push_back("; DoWhile()\n");
+	string doMark = GenerateMark();
+	string repeatMark = GenerateMark();
+	string endMark = GenerateMark();
+	mainCode.push_back("jmp " + doMark + "\n");
+	mainCode.push_back(repeatMark + ":\n");
+	temp = scan(false);
+	if (temp.ch == 'R' && temp.n == Find(R, "("))
+	{
+		if (!EI())
+			return false;
+		temp = scan(false);
+		if (!(temp.ch == 'R' && temp.n == Find(R, ")"))) { Error("DoWhile", 1); return false; }
+	}
+	mainCode.push_back("pop ax\n");
+	mainCode.push_back("cmp ax, 0\n");
+	mainCode.push_back("jnz " + doMark + "\n");
+	mainCode.push_back("jmp " + endMark + "\n");
+	mainCode.push_back(doMark + ":\n");
+	do
+	{
+		if (!Operator())
+			return false;
+		temp = scan(true);
+	} while (!(temp.ch == 'K' && (temp.n == Find(K, "else") || temp.n == Find(K, "endif"))));
+	temp = scan(false);
+	temp = scan(false);
+	if (!(temp.ch == 'K' && temp.n == Find(K, "do"))) { Error("DoWhile", 1); return false; }
+	mainCode.push_back("jmp " + repeatMark + "\n");
+	mainCode.push_back(endMark + ":\n");
+		return true;
+	Error("DoWhile", 1);
+	return false;
+}
 
 bool Write()
 {
@@ -1681,9 +1762,21 @@ bool Operator()
 			return false;
 		return true;
 	}
+	else if (temp.ch == 'K' && temp.n == Find(K, "for"))
+	{
+		if (!For())
+			return false;
+		return true;
+	}
 	else if (temp.ch == 'K' && temp.n == Find(K, "repeat"))
 	{
 		if (!Repeat())
+			return false;
+		return true;
+	}
+	else if (temp.ch == 'K' && temp.n == Find(K, "do"))
+	{
+		if (!DoWhile())
 			return false;
 		return true;
 	}
