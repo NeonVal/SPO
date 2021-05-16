@@ -1,17 +1,17 @@
 program MyCode;
 //Potapov 
-declare 
+var 
 a, b, d : integer;
 c : array [4] of integer;
 x, y, z : char;
 flag : boolean;
 main 
 {
+write("Enter number, number, char, bool");
 read(a, c[0], z, flag);
 b=c[0];
 y="Y";
 x=y;
-write("Help me!");
 d=a+b;
 c[1]=b-a;
 c[2]=b*a;
@@ -26,19 +26,19 @@ write("c[3]=", c[3]);
 write("x=", x);
 write("y=", y);
 write("z=", z);
-write("flag=", flag); 
+write("flag=", flag);
+if ( flag == true ) then 
+write("a=", a); 
 if ( a > b ) then  
 a=a-b
 else a=0;
 write("a=", a);
-while ( a<b ) do a=a+1;
+while ( a < b ) do a=a+1;
 write("a=", a);
 repeat 
-{
-	a=a+2;
-	d=d+1;
-}
-until (a>d);
+a=a+2
+d=d+1
+until ( a > d );
 write("a=", a);
 write("d=", d);
 }
