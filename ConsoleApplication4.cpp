@@ -51,10 +51,10 @@ int Find(vector<string> A, int begin, int end, string str)
 	if ((end - begin) / 2 == 0)
 		if (A[begin] != str && A[end] != str)
 			return -1;
-	 if(A[end]==str)
-	 return end;
-	 if(A[begin]==str)
-	 return begin;
+	if (A[end] == str)
+		return end;
+	if (A[begin] == str)
+		return begin;
 	if (A[((end - begin) / 2) + begin] == str)
 		return(end - begin) / 2 + begin;
 	if (A[((end - begin) / 2) + begin] < str)
@@ -89,7 +89,7 @@ int Find(vector<string> A, string str)
 	if (A[A.size() / 2] == str)
 		return A.size() / 2;
 	if (A[A.size() / 2] < str)
-		return Find(A, A.size() / 2, A.size()-1, str);
+		return Find(A, A.size() / 2, A.size() - 1, str);
 	else
 		return Find(A, 0, A.size() / 2, str);
 }
@@ -106,7 +106,7 @@ int Find(vector<ObI> A, string str)
 		return Find(A, 0, A.size() / 2, str);
 }
 
-void quickSort(vector <string> &arr, int left, int right) {
+void quickSort(vector <string>& arr, int left, int right) {
 	int i = left, j = right;
 	string tmp;
 	string pivot = arr[(left + right) / 2];
@@ -129,7 +129,7 @@ void quickSort(vector <string> &arr, int left, int right) {
 		quickSort(arr, i, right);
 }
 
-void quickSort(vector <ObI> &arr, int left, int right) {
+void quickSort(vector <ObI>& arr, int left, int right) {
 	int i = left, j = right;
 	ObI tmp;
 	string pivot = arr[(left + right) / 2].name;
@@ -159,11 +159,11 @@ void Error(string nameFunc, int number)
 	case 0:
 	{cout << "Функция: " + nameFunc + ": Неизвестный символ."; fclose(pf); break; }
 	case 1:
-	{cout << "Функция: " + nameFunc + ": Неверный индитификатор."; fclose(pf); break; }
+	{cout << "Функция: " + nameFunc + ": Неверный идентификатор."; fclose(pf); break; }
 	case 2:
-	{cout << "Функция: " + nameFunc + ": Повтор подряд индитификатора."; fclose(pf); break; }
+	{cout << "Функция: " + nameFunc + ": Повтор подряд идентификатора."; fclose(pf); break; }
 	case 3:
-	{cout << "Функция: " + nameFunc + ": Отсутвие нужного индитификатора."; fclose(pf); break; }
+	{cout << "Функция: " + nameFunc + ": Отсутвие нужного идентификатора."; fclose(pf); break; }
 	case 4:
 	{cout << "Функция: " + nameFunc + ": Логическая ошибка."; fclose(pf); break; }
 	default:
@@ -171,7 +171,7 @@ void Error(string nameFunc, int number)
 	}
 }
 
-Token scan (bool f)
+Token scan(bool f)
 {
 	int n = 0;
 	char x;
@@ -179,7 +179,7 @@ Token scan (bool f)
 	string buf = "";
 	ObI tempObI;
 	tempObI.mass = false;
-	tempObI.type=0;
+	tempObI.type = 0;
 	while (!feof(pf))
 	{
 		x = getc(pf);
@@ -192,7 +192,7 @@ Token scan (bool f)
 		case 0:
 		{
 
-			if ((x >= 'A'&&x <= 'Z') || (x >= 'a'&&x <= 'z'))
+			if ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z'))
 			{
 				buf += x;
 				n = 1;
@@ -206,7 +206,7 @@ Token scan (bool f)
 
 			}
 
-			else if ((x == '!') || (x >= '#'&&x <= '/') || (x >= ':'&&x <= '?') || (x >= '['&&x <= '^') || (x >= '{'&&x <= '}'))
+			else if ((x == '!') || (x >= '#' && x <= '/') || (x >= ':' && x <= '?') || (x >= '[' && x <= '^') || (x >= '{' && x <= '}'))
 			{
 				buf += x;
 				n = 3;
@@ -219,7 +219,7 @@ Token scan (bool f)
 				n = 4;
 				break;
 			}
-			else if ((x == ' ') || (x == '\n') || (x == '\t') || (x == '\r')) {   
+			else if ((x == ' ') || (x == '\n') || (x == '\t') || (x == '\r')) {
 				n = 0;
 			}
 			else
@@ -235,7 +235,7 @@ Token scan (bool f)
 
 
 
-			if ((x >= 'A'&&x <= 'Z') || (x >= 'a'&&x <= 'z') || (x >= '0'&&x <= '9') || x == '_')
+			if ((x >= 'A' && x <= 'Z') || (x >= 'a' && x <= 'z') || (x >= '0' && x <= '9') || x == '_')
 			{
 				buf += x;
 				break;
@@ -249,8 +249,8 @@ Token scan (bool f)
 					fseek(pf, -1, SEEK_CUR);
 					if (((x == '\n') || (x == '\t') || (x == '\r')) && f)
 						fseek(pf, -1, SEEK_CUR);
-					if(f)
-						fseek(pf, -((int)buf.length()+1), SEEK_CUR);
+					if (f)
+						fseek(pf, -((int)buf.length() + 1), SEEK_CUR);
 					return token;
 				}
 				if (buf != "")
@@ -327,14 +327,14 @@ Token scan (bool f)
 			}
 			if (buf != "")
 			{
-				
+
 				buf = buf[0];
 				token.n = Find(R, buf);
 				if (token.n != -1)
 				{
 					token.ch = 'R';
 					fseek(pf, -1, SEEK_CUR);
-					if(( (x == '\n') || (x == '\t') || (x == '\r')) && f)
+					if (((x == '\n') || (x == '\t') || (x == '\r')) && f)
 						fseek(pf, -1, SEEK_CUR);
 					if (f)
 						fseek(pf, -1, SEEK_CUR);
@@ -371,9 +371,7 @@ Token scan (bool f)
 				n = 0;
 				break;
 			}
-
 			break;
-
 		}
 		case 5:
 		{
@@ -391,7 +389,6 @@ Token scan (bool f)
 				break;
 			}
 			break;
-
 		}
 		case 6:
 		{
@@ -408,13 +405,9 @@ Token scan (bool f)
 				n = 0;
 				break;
 			}
-
 			break;
-
 		}
 		}
-
-
 	}
 }
 
@@ -423,7 +416,7 @@ bool E();
 bool F()
 {
 	Token temp = scan(true);
-	if (temp.ch == 'R' && temp.n == Find(R,"("))
+	if (temp.ch == 'R' && temp.n == Find(R, "("))
 	{
 		temp = scan(false);
 		if (!E())
@@ -501,7 +494,7 @@ bool F()
 						mainCode.push_back("mov al, " + ident.name + "[di]\n");
 						mainCode.push_back("push ax\n");
 					}
-					else 
+					else
 					{
 						Error("F", 4);
 						return false;
@@ -513,13 +506,14 @@ bool F()
 			if (temp.ch == 'C')
 			{
 				temp = scan(false);
-				mainCode.push_back("mov ax, " +C[temp.n] + "\npush ax\n");
+				mainCode.push_back("mov ax, " + C[temp.n] + "\npush ax\n");
 				return true;
 			}
 		Error("F", 1);
 		return false;
-
 	}
+	Error("F", 1);
+	return false;
 }
 
 bool T()
@@ -539,7 +533,7 @@ bool T()
 			return false;
 		}
 		if (!F())
-		return false;
+			return false;
 		if (tmp == Find(R, "/"))
 		{
 			mainCode.push_back("pop bx\n");
@@ -565,9 +559,9 @@ bool E()
 {
 	int tmp;
 	if (!T())
-	return false;
+		return false;
 	Token temp = scan(true);
-	while ((temp.ch=='R') && (temp.n == Find(R, "+") || temp.n == Find(R, "-")))
+	while ((temp.ch == 'R') && (temp.n == Find(R, "+") || temp.n == Find(R, "-")))
 	{
 		temp = scan(false);
 		tmp = temp.n;
@@ -603,7 +597,7 @@ bool EI();
 bool Zn()
 {
 	Token temp = scan(true);
-	if(temp.ch == 'R' && temp.n == Find(R, "<"))
+	if (temp.ch == 'R' && temp.n == Find(R, "<"))
 	{
 		temp = scan(false);
 		cmpType = 0;
@@ -647,7 +641,7 @@ bool FI()
 {
 	Token temp = scan(true);
 	string trueMark, falseMark;
-	if (temp.ch == 'I'&& !(I[temp.n].type==2))
+	if (temp.ch == 'I' && !(I[temp.n].type == 2))
 	{
 		if (!E())
 			return false;
@@ -783,14 +777,18 @@ bool TI()
 	if (!FI())
 		return false;
 	Token temp = scan(true);
-	while ((temp.ch == 'K' &&  temp.n == Find(K, "and")) || (temp.ch == 'D' &&  temp.n == Find(D, "&&")))
+	while ((temp.ch == 'K' && temp.n == Find(K, "and")) || (temp.ch == 'D' && temp.n == Find(D, "&&")))
 	{
 		temp = scan(false);
 		temp = scan(true);
-		if ((temp.ch == 'K' &&  temp.n == Find(K, "and")))
-			{ Error("TI", 2); return false; }
-		if ((temp.ch == 'D' &&  temp.n == Find(D, "&&")))
-			{ Error("TI", 2); return false; }
+		if ((temp.ch == 'K' && temp.n == Find(K, "and")))
+		{
+			Error("TI", 2); return false;
+		}
+		if ((temp.ch == 'D' && temp.n == Find(D, "&&")))
+		{
+			Error("TI", 2); return false;
+		}
 		if (!FI())
 			return false;
 		mainCode.push_back("pop bx\n");
@@ -807,14 +805,18 @@ bool EI()
 	if (!TI())
 		return false;
 	Token temp = scan(true);
-	while ((temp.ch == 'K' &&  temp.n == Find(K, "or")) || (temp.ch == 'D' &&  temp.n == Find(D, "||")))
+	while ((temp.ch == 'K' && temp.n == Find(K, "or")) || (temp.ch == 'D' && temp.n == Find(D, "||")))
 	{
 		temp = scan(false);
 		temp = scan(true);
-		if ((temp.ch == 'K' &&  temp.n == Find(K, "or")))
-		{ Error("EI", 2); return false; }
-			if ((temp.ch == 'D' &&  temp.n == Find(D, "||")))
-			{ Error("EI", 2); return false; }
+		if ((temp.ch == 'K' && temp.n == Find(K, "or")))
+		{
+			Error("EI", 2); return false;
+		}
+		if ((temp.ch == 'D' && temp.n == Find(D, "||")))
+		{
+			Error("EI", 2); return false;
+		}
 		if (!TI())
 			return false;
 		mainCode.push_back("pop bx\n");
@@ -831,23 +833,23 @@ bool BaseType()
 	Token temp = scan(false);
 	if (temp.ch == 'K' && temp.n == Find(K, "integer"))
 	{
-		strTemp= " dw ";
+		strTemp = " dw ";
 		for (int i = 0; i < vectemp.size(); i++)
 		{
 			I[Find(I, vectemp[i])].type = 0;
 			if (!I[Find(I, vectemp[i])].mass)
-			dataCode.push_back(vectemp[i] + strTemp + " (?)\n");
+				dataCode.push_back(vectemp[i] + strTemp + " (?)\n");
 		}
 		return true;
 	}
 	else if (temp.ch == 'K' && temp.n == Find(K, "char"))
 	{
-		strTemp = " db "; 
+		strTemp = " db ";
 		for (int i = 0; i < vectemp.size(); i++)
 		{
 			I[Find(I, vectemp[i])].type = 1;
 			if (!I[Find(I, vectemp[i])].mass)
-			dataCode.push_back(vectemp[i] + strTemp + " (?)\n");
+				dataCode.push_back(vectemp[i] + strTemp + " (?)\n");
 		}
 		return true;
 	}
@@ -857,12 +859,12 @@ bool BaseType()
 		for (int i = 0; i < vectemp.size(); i++)
 		{
 			I[Find(I, vectemp[i])].type = 2;
-			if(!I[Find(I, vectemp[i])].mass)
-			dataCode.push_back(vectemp[i] + strTemp  + " (?)\n");
+			if (!I[Find(I, vectemp[i])].mass)
+				dataCode.push_back(vectemp[i] + strTemp + " (?)\n");
 		}
 		return true;
 	}
-	Error("BaseType", 1); 
+	Error("BaseType", 1);
 	return false;
 }
 
@@ -919,7 +921,7 @@ bool Type()
 bool Declaration()
 {
 	Token temp = scan(false);
-	if (temp.ch == 'K' &&  temp.n == Find(K, "var"))
+	if (temp.ch == 'K' && temp.n == Find(K, "var"))
 	{
 		asm1 << "; user data\n";
 		temp = scan(true);
@@ -930,9 +932,9 @@ bool Declaration()
 			strTemp += I[temp.n].name;
 			vectemp.push_back(I[temp.n].name);
 			temp = scan(true);
-			while (!(temp.ch == 'R' &&  temp.n == Find(R, ":")))
+			while (!(temp.ch == 'R' && temp.n == Find(R, ":")))
 			{
-				if (temp.ch == 'R' &&  temp.n == Find(R, ","))
+				if (temp.ch == 'R' && temp.n == Find(R, ","))
 				{
 					temp = scan(false);
 					temp = scan(false);
@@ -946,11 +948,11 @@ bool Declaration()
 			if (!Type())
 				return false;
 			temp = scan(false);
-			if (!(temp.ch == 'R' &&  temp.n == Find(R, ";"))) { Error("Declaration", 1); return false; }
+			if (!(temp.ch == 'R' && temp.n == Find(R, ";"))) { Error("Declaration", 1); return false; }
 			vectemp.clear();
 			strTemp = "";
 			temp = scan(true);
-		} while (!(temp.ch == 'K' &&  temp.n == Find(K, "main")));
+		} while (!(temp.ch == 'K' && temp.n == Find(K, "main")));
 		return true;
 	}
 	Error("Declaration", 1);
@@ -962,22 +964,22 @@ bool Operation();
 bool Appropriation()
 {
 	Token temp = scan(false);
-	if (temp.ch == 'K' &&  temp.n == Find(K, "let"))
+	if (temp.ch == 'K' && temp.n == Find(K, "let"))
 		temp = scan(false);
 	if (temp.ch == 'I')
 	{
 		mainCode.push_back("; Appr\n");
 		ObI ident = I[temp.n];
 		temp = scan(false);
-		if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+		if (temp.ch == 'R' && temp.n == Find(R, "["))
 		{
 			if (!E())
 				return false;
 			temp = scan(false);
-			if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Appropriation", 1); return false; }
+			if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Appropriation", 1); return false; }
 			temp = scan(false);
 		}
-		if (temp.ch == 'R' &&  temp.n == Find(R, "="))
+		if (temp.ch == 'R' && temp.n == Find(R, "="))
 		{
 			temp = scan(true);
 			if (temp.ch == 'K' && temp.n == Find(K, "true"))
@@ -986,7 +988,7 @@ bool Appropriation()
 				mainCode.push_back("mov " + ident.name + "[di], 1\n");
 				return true;
 			}
-			if (temp.ch == 'K' &&  temp.n == Find(K, "false"))
+			if (temp.ch == 'K' && temp.n == Find(K, "false"))
 			{
 				temp = scan(false);
 				mainCode.push_back("mov " + ident.name + "[di], 0\n");
@@ -995,7 +997,7 @@ bool Appropriation()
 			if (temp.ch == 'L')
 			{
 				temp = scan(false);
-				string str="";
+				string str = "";
 				str += L[temp.n][1];
 				mainCode.push_back("push \"" + str + "\"\n");
 				mainCode.push_back("pop ax\n");
@@ -1013,22 +1015,22 @@ bool Appropriation()
 				temp = scan(false);
 				string tempI = I[temp.n].name;
 				temp = scan(true);
-				if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+				if (temp.ch == 'R' && temp.n == Find(R, "["))
 				{
 					temp = scan(false);
 					if (!E())
 						return false;
 					temp = scan(false);
-					if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Appropriation", 1); return false; }
+					if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Appropriation", 1); return false; }
 					temp = scan(false);
 				}
 				else
 				{
 					mainCode.push_back("mov di, 0\n");
 				}
-				mainCode.push_back("mov al, "+ tempI + "[di]\n");
+				mainCode.push_back("mov al, " + tempI + "[di]\n");
 				mainCode.push_back("push ax\n");
-				mainCode.push_back("pop ax\n"); 
+				mainCode.push_back("pop ax\n");
 				if (ident.mass)
 				{
 					mainCode.push_back("pop bx\n");
@@ -1053,7 +1055,7 @@ bool Appropriation()
 			}
 		}
 	}
-	Error("Appropriation", 1); 
+	Error("Appropriation", 1);
 	return false;
 }
 
@@ -1075,8 +1077,8 @@ bool Condition()
 		if (!(temp.ch == 'R' && temp.n == Find(R, ")"))) { Error("Condition", 1); return false; }
 		mainCode.push_back("pop ax\n");
 		mainCode.push_back("cmp ax, 0\n");
-		mainCode.push_back("jz " + elseMark + "\n");
-		mainCode.push_back("jmp " +  thenMark + "\n");
+		mainCode.push_back("jnz " + thenMark + "\n");
+		mainCode.push_back("jmp " + elseMark + "\n");
 		mainCode.push_back(thenMark + ":\n");
 		temp = scan(false);
 		if (!(temp.ch == 'K' && temp.n == Find(K, "then"))) { Error("Condition", 1); return false; }
@@ -1104,6 +1106,7 @@ bool Cycle()
 	mainCode.push_back("; Cycle()\n");
 	string whileMark = GenerateMark();
 	string endMark = GenerateMark();
+	string doMark = GenerateMark();
 	temp = scan(false);
 	if (temp.ch == 'R' && temp.n == Find(R, "("))
 	{
@@ -1116,7 +1119,9 @@ bool Cycle()
 		if (!(temp.ch == 'K' && temp.n == Find(K, "do"))) { Error("Cycle", 1); return false; }
 		mainCode.push_back("pop ax\n");
 		mainCode.push_back("cmp ax, 0\n");
-		mainCode.push_back("jz " + endMark + "\n");
+		mainCode.push_back("jnz " + doMark + "\n");
+		mainCode.push_back("jmp " + endMark + "\n");
+		mainCode.push_back(doMark + ":\n");
 		if (!Operator())
 			return false;
 		mainCode.push_back("jmp " + whileMark + "\n");
@@ -1140,8 +1145,7 @@ bool Repeat()
 		if (!Operator())
 			return false;
 		temp = scan(true);
-	} 
-	while (!(temp.ch == 'K' && temp.n == Find(K, "until")));
+	} while (!(temp.ch == 'K' && temp.n == Find(K, "until")));
 	temp = scan(false);
 	if (!(temp.ch == 'K' && temp.n == Find(K, "until"))) { Error("Repeat", 1); return false; }
 	temp = scan(false);
@@ -1168,7 +1172,7 @@ bool Write()
 	Token temp = scan(false);
 	string textp;
 	ObI tempI;
-	if (temp.ch == 'K' &&  temp.n == Find(K, "write"))
+	if (temp.ch == 'K' && temp.n == Find(K, "write"))
 	{
 		mainCode.push_back("; Write()\n");
 		mainCode.push_back("lea dx, clrf\n");
@@ -1182,8 +1186,8 @@ bool Write()
 			{
 				textp = GenerateMark();
 				string str = L[temp.n];
-				str.erase(str.length()-1,1);
-				
+				str.erase(str.length() - 1, 1);
+
 				dataCode.push_back(textp + " db " + str + "$\"\n");
 				mainCode.push_back("lea dx, " + textp + "\n");
 				mainCode.push_back("mov ah, 9\n");
@@ -1195,13 +1199,13 @@ bool Write()
 				temp = scan(false);
 				tempI = I[temp.n];
 				temp = scan(true);
-				if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+				if (temp.ch == 'R' && temp.n == Find(R, "["))
 				{
 					temp = scan(false);
 					if (!E())
 						return false;
 					temp = scan(false);
-					if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Write", 1); return false; }
+					if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Write", 1); return false; }
 				}
 				if (tempI.mass) mainCode.push_back("pop di\n");
 				else mainCode.push_back("mov di, 0\n");
@@ -1214,7 +1218,7 @@ bool Write()
 			else if (temp.ch == 'I' && I[temp.n].type == 2) //bool
 			{
 				if (!E())
-					return false; 
+					return false;
 				string trueMark = GenerateMark();
 				string falseMark = GenerateMark();
 				mainCode.push_back("pop ax\n");
@@ -1276,18 +1280,18 @@ bool Write()
 					mainCode.push_back("int 21h\n");
 					temp = scan(false);
 				}
-				else if (temp.ch == 'I' && I[temp.n].type==1)
+				else if (temp.ch == 'I' && I[temp.n].type == 1)
 				{
-					temp = scan(false); 
+					temp = scan(false);
 					tempI = I[temp.n];
 					temp = scan(true);
-					if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+					if (temp.ch == 'R' && temp.n == Find(R, "["))
 					{
 						temp = scan(false);
 						if (!E())
 							return false;
 						temp = scan(false);
-						if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Write", 1); return false; }
+						if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Write", 1); return false; }
 					}
 					if (tempI.mass) mainCode.push_back("pop di\n");
 					else mainCode.push_back("mov di, 0\n");
@@ -1307,7 +1311,7 @@ bool Write()
 					mainCode.push_back("cmp ax, 0\n");
 					mainCode.push_back("je " + trueMark + "\n");
 					mainCode.push_back("lea dx, @@true\n");
-					mainCode.push_back("jmp " + falseMark +"\n");
+					mainCode.push_back("jmp " + falseMark + "\n");
 					mainCode.push_back(trueMark + ":\n");
 					mainCode.push_back("lea dx, @@false\n");
 					mainCode.push_back(falseMark + ":\n");
@@ -1346,7 +1350,7 @@ bool Write()
 					mainCode.push_back("mov dl, output[di]\n");
 					mainCode.push_back("dec di\n");
 					mainCode.push_back("int 21h\n");
-					mainCode.push_back("loop " + textp +"\n");
+					mainCode.push_back("loop " + textp + "\n");
 				}
 				temp = scan(true);
 			}
@@ -1368,7 +1372,7 @@ bool Read()
 {
 	Token temp = scan(false);
 	ObI ident;
-	if (temp.ch == 'K' &&  temp.n == Find(K, "read"))
+	if (temp.ch == 'K' && temp.n == Find(K, "read"))
 	{
 		temp = scan(false);
 		if (temp.ch == 'R' && temp.n == Find(R, "("))
@@ -1378,13 +1382,13 @@ bool Read()
 			{
 				ident = I[temp.n];
 				temp = scan(true);
-				if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+				if (temp.ch == 'R' && temp.n == Find(R, "["))
 				{
 					temp = scan(false);
 					if (!E())
 						return false;
 					temp = scan(false);
-					if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Read", 1); return false; }
+					if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Read", 1); return false; }
 				}
 				else mainCode.push_back("push 0\n");
 			}
@@ -1410,7 +1414,7 @@ bool Read()
 				mainCode.push_back("cmp al, \"9\"\n");
 				mainCode.push_back("ja " + errorM + "\n");
 				mainCode.push_back("cmp al, \"0\"\n");
-				mainCode.push_back("jb " + errorM +"\n");
+				mainCode.push_back("jb " + errorM + "\n");
 				mainCode.push_back("loop " + lMark + "\n");
 				mainCode.push_back("mov cl, byte ptr[blength]\n");
 				mainCode.push_back("mov di, 0\n");
@@ -1518,13 +1522,13 @@ bool Read()
 				{
 					ident = I[temp.n];
 					temp = scan(true);
-					if (temp.ch == 'R' &&  temp.n == Find(R, "["))
+					if (temp.ch == 'R' && temp.n == Find(R, "["))
 					{
 						temp = scan(false);
 						if (!E())
 							return false;
 						temp = scan(false);
-						if (!(temp.ch == 'R' &&  temp.n == Find(R, "]"))) { Error("Read", 1); return false; }
+						if (!(temp.ch == 'R' && temp.n == Find(R, "]"))) { Error("Read", 1); return false; }
 					}
 					else mainCode.push_back("push 0\n");
 				}
@@ -1652,7 +1656,7 @@ bool Read()
 				}
 				temp = scan(false);
 			}
-			if (temp.ch == 'R' && temp.n == Find(R, ")")) 
+			if (temp.ch == 'R' && temp.n == Find(R, ")"))
 				return true;
 		}
 	}
@@ -1663,7 +1667,7 @@ bool Read()
 bool Operator()
 {
 	Token temp = scan(true);
-	if (temp.ch == 'I'|| (temp.ch == 'K' &&  temp.n == Find(K, "let")))
+	if (temp.ch == 'I' || (temp.ch == 'K' && temp.n == Find(K, "let")))
 	{
 		if (!Appropriation())
 			return false;
@@ -1675,7 +1679,7 @@ bool Operator()
 			return false;
 		return true;
 	}
-	else if(temp.ch == 'K' && temp.n == Find(K, "while"))
+	else if (temp.ch == 'K' && temp.n == Find(K, "while"))
 	{
 		if (!Cycle())
 			return false;
@@ -1701,7 +1705,7 @@ bool Operator()
 	}
 	else
 	{
-		if (temp.ch == 'R' &&  temp.n == Find(R, "{"))
+		if (temp.ch == 'R' && temp.n == Find(R, "{"))
 			if (!Operation())
 				return false;
 		return true;
@@ -1713,15 +1717,15 @@ bool Operator()
 bool Operation()
 {
 	Token temp = scan(false);
-	if (temp.ch == 'R' &&  temp.n == Find(R, "{"))
+	if (temp.ch == 'R' && temp.n == Find(R, "{"))
 	{
 		temp = scan(true);
-		while (!(temp.ch == 'R' &&  temp.n == Find(R, "}")))
+		while (!(temp.ch == 'R' && temp.n == Find(R, "}")))
 		{
 			if (!Operator())
 				return false;
 			temp = scan(false);
-			if (!(temp.ch == 'R' &&  temp.n == Find(R, ";"))) { Error("Operation", 1); return false; }
+			if (!(temp.ch == 'R' && temp.n == Find(R, ";"))) { Error("Operation", 1); return false; }
 			temp = scan(true);
 		}
 		temp = scan(false);
@@ -1734,17 +1738,17 @@ bool Operation()
 bool Program()
 {
 	Token temp = scan(false);
-	if (temp.ch == 'K' &&  temp.n == Find(K, "program"))
+	if (temp.ch == 'K' && temp.n == Find(K, "program"))
 	{
 		temp = scan(false);
-		if(temp.ch != 'I') { Error("Program", 1); return false; }
-		string nameProg= ";" + I[temp.n].name + "\n";
+		if (temp.ch != 'I') { Error("Program", 1); return false; }
+		string nameProg = ";" + I[temp.n].name + "\n";
 		asm1 << nameProg;
 		temp = scan(false);
-		if(!(temp.ch == 'R' &&  temp.n == Find(R, ";"))) { Error("Program", 1); return false; }
+		if (!(temp.ch == 'R' && temp.n == Find(R, ";"))) { Error("Program", 1); return false; }
 		asm1 << ".8086\n";
 		asm1 << ".model small\n";
-		asm1<< ".stack 100h\n";
+		asm1 << ".stack 100h\n";
 		asm1 << ".data\n";
 		asm1 << "; support data\n";
 		asm1 << "@buffer db 6\n";
@@ -1758,13 +1762,13 @@ bool Program()
 		asm1 << "clrf db 0Dh, 0Ah,\"$\"\n";
 		asm1 << "output db 6 DUP (?), \"$\"\n";
 		temp = scan(true);
-		if (temp.ch == 'K' &&  temp.n == Find(K, "var"))
+		if (temp.ch == 'K' && temp.n == Find(K, "var"))
 		{
 			if (!Declaration())
 				return false;
 		}
 		temp = scan(false);
-		if (temp.ch == 'K' &&  temp.n == Find(K, "main"))
+		if (temp.ch == 'K' && temp.n == Find(K, "main"))
 		{
 			mainCode.push_back(".code\n");
 			mainCode.push_back("main:\n");
@@ -1776,12 +1780,15 @@ bool Program()
 			if (!Operation())
 				return false;
 			temp = scan(false);
-			if (temp.ch == 'K' &&  temp.n == Find(K, "end"))
+			if (temp.ch == 'K' && temp.n == Find(K, "end"))
 			{
 				temp = scan(true);
-				if (temp.ch == 'R' &&  temp.n == Find(R, "."))
+				if (temp.ch == 'R' && temp.n == Find(R, "."))
 					temp = scan(false);
 				else { Error("Program", 1); return false; }
+				mainCode.push_back("lea dx, clrf\n");
+				mainCode.push_back("mov ah, 9\n");
+				mainCode.push_back("int 21h\n");
 				mainCode.push_back("mov ax, 4C00h\n");
 				mainCode.push_back("int 21h\n");
 				mainCode.push_back("end main\n");
@@ -1808,9 +1815,9 @@ int main()
 {
 	setlocale(LC_ALL, "Russian");
 	fopen_s(&pf, "test.txt", "r");
-	asm1.open("programm.asm", ios_base::out); 
-	if(Program())
-	cout  << "Успешно!" << endl;
+	asm1.open("programm.asm", ios_base::out);
+	if (Program())
+		cout << "Успешно!" << endl;
 	asm1.close();
 	fclose(pf);
 	system("pause");

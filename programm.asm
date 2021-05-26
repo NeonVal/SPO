@@ -37,9 +37,9 @@ flag db  (?)
 @M42 db "flag=$"
 @M50 db "a=$"
 @M58 db "a=$"
-@M65 db "a=$"
-@M72 db "a=$"
-@M75 db "d=$"
+@M66 db "a=$"
+@M73 db "a=$"
+@M76 db "d=$"
 .code
 main:
 mov ax, @data
@@ -639,8 +639,8 @@ push 1
 @M46:
 pop ax
 cmp ax, 0
-jz @M48
-jmp @M47
+jnz @M47
+jmp @M48
 @M47:
 ; Write()
 lea dx, clrf
@@ -703,8 +703,8 @@ push 1
 @M54:
 pop ax
 cmp ax, 0
-jz @M56
-jmp @M55
+jnz @M55
+jmp @M56
 @M55:
 ; Appr
 mov di, 0
@@ -780,15 +780,17 @@ push ax
 pop bx
 pop ax
 cmp ax, bx
-jb @M63
+jb @M64
 push 0
-jmp @M64
-@M63:
-push 1
+jmp @M65
 @M64:
+push 1
+@M65:
 pop ax
 cmp ax, 0
-jz @M62
+jnz @M63
+jmp @M62
+@M63:
 ; Appr
 mov di, 0
 shl di, 1
@@ -808,7 +810,7 @@ jmp @M61
 lea dx, clrf
 mov ah, 9
 int 21h
-lea dx, @M65
+lea dx, @M66
 mov ah, 9
 int 21h
 mov di, 0
@@ -820,30 +822,30 @@ mov bx, 10
 mov di, 0
 mov si, ax
 cmp ax, 0
-jns @M66
+jns @M67
 neg si
 mov ah, 2
 mov dl, "-"
 int 21h
 mov ax, si
-@M66:
+@M67:
 mov dx, 0
 div bx
 add dl, 30h
 mov output[di], dl
 inc di
 cmp al, 0
-jnz @M66
+jnz @M67
 mov cx, di
 dec di
 mov ah, 2
-@M67:
+@M68:
 mov dl, output[di]
 dec di
 int 21h
-loop @M67
+loop @M68
 ; Repeat()
-@M68:
+@M69:
 ; Appr
 mov di, 0
 shl di, 1
@@ -881,22 +883,22 @@ push ax
 pop bx
 pop ax
 cmp ax, bx
-ja @M70
+ja @M71
 push 0
-jmp @M71
-@M70:
-push 1
+jmp @M72
 @M71:
+push 1
+@M72:
 pop ax
 cmp ax, 0
-jnz @M69
-jmp @M68
-@M69:
+jnz @M70
+jmp @M69
+@M70:
 ; Write()
 lea dx, clrf
 mov ah, 9
 int 21h
-lea dx, @M72
+lea dx, @M73
 mov ah, 9
 int 21h
 mov di, 0
@@ -908,33 +910,33 @@ mov bx, 10
 mov di, 0
 mov si, ax
 cmp ax, 0
-jns @M73
+jns @M74
 neg si
 mov ah, 2
 mov dl, "-"
 int 21h
 mov ax, si
-@M73:
+@M74:
 mov dx, 0
 div bx
 add dl, 30h
 mov output[di], dl
 inc di
 cmp al, 0
-jnz @M73
+jnz @M74
 mov cx, di
 dec di
 mov ah, 2
-@M74:
+@M75:
 mov dl, output[di]
 dec di
 int 21h
-loop @M74
+loop @M75
 ; Write()
 lea dx, clrf
 mov ah, 9
 int 21h
-lea dx, @M75
+lea dx, @M76
 mov ah, 9
 int 21h
 mov di, 0
@@ -946,28 +948,31 @@ mov bx, 10
 mov di, 0
 mov si, ax
 cmp ax, 0
-jns @M76
+jns @M77
 neg si
 mov ah, 2
 mov dl, "-"
 int 21h
 mov ax, si
-@M76:
+@M77:
 mov dx, 0
 div bx
 add dl, 30h
 mov output[di], dl
 inc di
 cmp al, 0
-jnz @M76
+jnz @M77
 mov cx, di
 dec di
 mov ah, 2
-@M77:
+@M78:
 mov dl, output[di]
 dec di
 int 21h
-loop @M77
+loop @M78
+lea dx, clrf
+mov ah, 9
+int 21h
 mov ax, 4C00h
 int 21h
 end main
